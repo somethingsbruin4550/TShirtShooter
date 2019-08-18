@@ -2,9 +2,10 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
+// import edu.wpi.first.wpilibj.IterativeRobot; //Deprecated
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.*;
+// import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -13,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot 
+public class Robot extends TimedRobot
 {
     /**
      * This function is run when the robot is first started up and should be
@@ -26,8 +27,8 @@ public class Robot extends IterativeRobot
 	private static Shooter _shooter;//The shooter
 	private static ShooterCompressor _compressor;//The compressor
 	
-	private SendableChooser _chooser;
-	private SendableChooser _chooser2;
+	// private SendableChooser _chooser;
+	// private SendableChooser _chooser2;
 	
 	
 	/**
