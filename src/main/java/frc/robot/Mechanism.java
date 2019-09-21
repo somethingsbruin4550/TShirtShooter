@@ -1,6 +1,7 @@
 package frc.robot;
 
-import frc.robot.CCTalon;
+// import frc.robot.CCTalon;
+import edu.wpi.first.wpilibj.Talon;
 
 public class Mechanism
 {
@@ -8,11 +9,13 @@ public class Mechanism
 	private static Mechanism _instance;//This mechanism
 		
 	//The talon which represents the pivot of the mechanism arm.
-    private CCTalon _pivot;
+	private Talon _pivot;
+    // private CCTalon _pivot;
 	
 	private Mechanism( )
 	{
-		_pivot = new CCTalon( RobotMap.PIVOT_PORT, RobotMap.PIVOT_REVERSED );
+		//_pivot = new CCTalon( RobotMap.PIVOT_PORT, RobotMap.PIVOT_REVERSED );
+		_pivot = new Talon(RobotMap.PIVOT_PORT); _pivot.setInverted(RobotMap.PIVOT_REVERSED);
 	}
 	/**
 	 * Singleton for the Mechanism

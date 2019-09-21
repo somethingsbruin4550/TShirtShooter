@@ -1,14 +1,16 @@
 package frc.robot;
 
-import frc.robot.CCTalon;
+// import frc.robot.CCTalon;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.SPI;
+// import edu.wpi.first.wpilibj.PIDController;
+// import edu.wpi.first.wpilibj.PIDOutput;
+// import edu.wpi.first.wpilibj.PIDSource;
+// import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+// import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
+import edu.wpi.first.wpilibj.Talon;
 
 //import com.kauailabs.navx.frc.AHRS;
 
@@ -17,22 +19,30 @@ public class Chassis
 	
 	private static Chassis _instance;//The current chassis
 	
-	private CCTalon _leftFront;// The left front talon on the robot
-	private CCTalon _rightFront;// The right front talon on the robot
-	private CCTalon _leftRear;//The left rear talon on the robot
-	private CCTalon _rightRear;//The right rear talon on the robot
-//	private AHRS _gyro; // this is a gyroscope
+	private Talon _leftFront;
+	private Talon _rightFront;
+	private Talon _leftRear;
+	private Talon _rightRear;
+	// private CCTalon _leftFront;// The left front talon on the robot
+	// private CCTalon _rightFront;// The right front talon on the robot
+	// private CCTalon _leftRear;//The left rear talon on the robot
+	// private CCTalon _rightRear;//The right rear talon on the robot
+	//	private AHRS _gyro; // this is a gyroscope
 	private Servo _servo;
 
-	private double rotateToAngleRate;
+	// private double rotateToAngleRate;
 	
 	private Chassis( )
 	{
 		//Initializes the talons
-		_leftFront = new CCTalon( RobotMap.LEFT_FRONT_TALON_PORT, RobotMap.LEFT_FRONT_TALON_REVERSE );
-		_rightFront = new CCTalon( RobotMap.RIGHT_FRONT_TALON_PORT, RobotMap.RIGHT_FRONT_TALON_REVERSE );
-		_leftRear = new CCTalon( RobotMap.LEFT_REAR_TALON_PORT, RobotMap.LEFT_REAR_TALON_REVERSE );
-		_rightRear = new CCTalon( RobotMap.RIGHT_REAR_TALON_PORT, RobotMap.RIGHT_REAR_TALON_REVERSE );
+		_leftFront = new Talon(RobotMap.LEFT_FRONT_TALON_PORT); _leftFront.setInverted(RobotMap.LEFT_FRONT_TALON_REVERSE);
+		_rightFront = new Talon(RobotMap.RIGHT_FRONT_TALON_PORT); _rightFront.setInverted(RobotMap.RIGHT_FRONT_TALON_REVERSE);
+		_leftRear = new Talon(RobotMap.LEFT_REAR_TALON_PORT); _leftRear.setInverted(RobotMap.LEFT_REAR_TALON_REVERSE);
+		_rightRear = new Talon(RobotMap.RIGHT_REAR_TALON_PORT); _rightRear.setInverted(RobotMap.RIGHT_REAR_TALON_REVERSE);
+		// _leftFront = new CCTalon( RobotMap.LEFT_FRONT_TALON_PORT, RobotMap.LEFT_FRONT_TALON_REVERSE );
+		// _rightFront = new CCTalon( RobotMap.RIGHT_FRONT_TALON_PORT, RobotMap.RIGHT_FRONT_TALON_REVERSE );
+		// _leftRear = new CCTalon( RobotMap.LEFT_REAR_TALON_PORT, RobotMap.LEFT_REAR_TALON_REVERSE );
+		// _rightRear = new CCTalon( RobotMap.RIGHT_REAR_TALON_PORT, RobotMap.RIGHT_REAR_TALON_REVERSE );
 		try{
 //			_gyro = new AHRS(SPI.Port.kMXP);
 		}catch( RuntimeException ex ){

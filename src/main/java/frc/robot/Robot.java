@@ -2,7 +2,8 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
+// import edu.wpi.first.wpilibj.IterativeRobot; //Deprecated
 import edu.wpi.first.wpilibj.command.Scheduler;
 // import edu.wpi.first.wpilibj.smartdashboard.*;
 
@@ -13,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot 
+public class Robot extends TimedRobot
 {
     /**
      * This function is run when the robot is first started up and should be

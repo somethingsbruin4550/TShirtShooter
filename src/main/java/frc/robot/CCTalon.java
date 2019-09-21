@@ -11,20 +11,12 @@ public class CCTalon extends WPI_TalonSRX
 		public CCTalon( int channel, boolean reverse )
 		{
 			super( channel );
-			_reverse = reverse;
+			super.setInverted(reverse);
 		}
 
 		public void set( double speed )
 		{
-			// Sets the speed and reverses it as necessary by running the motor in the opposite direction
-			if( _reverse )
-			{
-				super.set( -speed );
-			}
-			else
-			{
-				super.set( speed );
-			}
+			super.set(speed);
 		}
 	
 }
