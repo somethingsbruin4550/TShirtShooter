@@ -4,7 +4,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.*;
+// import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,8 +26,8 @@ public class Robot extends IterativeRobot
 	private static Shooter _shooter;//The shooter
 	private static ShooterCompressor _compressor;//The compressor
 	
-	private SendableChooser _chooser;
-	private SendableChooser _chooser2;
+	// private SendableChooser _chooser;
+	// private SendableChooser _chooser2;
 	
 	
 	/**
@@ -91,8 +91,11 @@ public class Robot extends IterativeRobot
     public void teleopPeriodic()
     {
     	Scheduler.getInstance().run();
-    	//Drives the robot
-    	_chassis.holoDrive( OI.normalize( .25, -.25, RobotMap.RIGHT_Y_ZERO, _oi.getRJoystickYAxis( ) ) , OI.normalize( .25, -.25, 0, _oi.getRJoystickXAxis( ) ), OI.normalize( .25, -.25, 0, _oi.getLJoystickXAxis( ) ) );
+		//Drives the robot
+		final double spdLimit = 1.0;
+		_chassis.holoDrive( OI.normalize( spdLimit, -spdLimit, RobotMap.RIGHT_Y_ZERO, _oi.getRJoystickYAxis( ) ) ,
+			 				OI.normalize( spdLimit, -spdLimit, 0, _oi.getRJoystickXAxis( ) ), 
+								OI.normalize( spdLimit, -spdLimit, 0, _oi.getLJoystickXAxis( ) ) );
     	
     	//Moves the arm
     	_mechanism.moveArm(  OI.normalize( .7, -.7, 0, _oi.getL2() - _oi.getR2() ) );

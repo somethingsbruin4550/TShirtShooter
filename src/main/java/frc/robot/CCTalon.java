@@ -1,11 +1,10 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Talon;
+import com.ctre.phoenix.motorcontrol.can.*;
 
 
-public class CCTalon extends Talon
+public class CCTalon extends WPI_TalonSRX
 {
-
 	// Whether or not this Talon is reversed
 		private boolean _reverse;
 

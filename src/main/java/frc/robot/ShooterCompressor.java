@@ -17,12 +17,12 @@ public class ShooterCompressor
      */
     private ShooterCompressor( )
     {
-        _compressor = new Compressor( );
+        _compressor = new Compressor(RobotMap.COMPRESSOR_CHANNEL);
     }
     
     /**
      * Singleton of the Compressor
-     * @return The Instance
+     * @return The   
      */
     public static ShooterCompressor getInstance( )
     {

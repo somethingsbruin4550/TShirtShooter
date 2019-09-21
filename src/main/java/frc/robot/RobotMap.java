@@ -40,15 +40,17 @@ public class RobotMap
 	public static final boolean LEFT_FRONT_TALON_REVERSE = false;
 	public static final int RIGHT_FRONT_TALON_PORT = 1;
 	public static final boolean RIGHT_FRONT_TALON_REVERSE = true;
-	public static final int LEFT_REAR_TALON_PORT = 2;
+	public static final int LEFT_REAR_TALON_PORT = 4;
 	public static final boolean LEFT_REAR_TALON_REVERSE = false;
-	public static final int RIGHT_REAR_TALON_PORT = 3;
+	public static final int RIGHT_REAR_TALON_PORT = 2;
 	public static final boolean RIGHT_REAR_TALON_REVERSE = true;
 	
-	public static final int PIVOT_PORT = 4;
+	public static final int PIVOT_PORT = 3;
 	public static final boolean PIVOT_REVERSED = false;
 	
-	public static final int SHOOTER_PORT = 5;
+	public static final int SHOOTER_CHANNEL = 0;
+	public static final int COMPRESSOR_CHANNEL = 5;
+	public static final int PCM_PORT = 5;
 	
 	public static final double SHOOT_LOW_FOOT = 0.035;
 	public static final double SHOOT_MED_FOOT = 0.045;

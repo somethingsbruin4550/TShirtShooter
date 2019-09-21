@@ -1,14 +1,15 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Talon;
+// import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Solenoid;
 
 
 public class Shooter
 {
 
 	//The talon that controls the shooting
-    private Talon _shooter;
+    private Solenoid _shooter;
     
     //The shooter on the robot
     private static Shooter _instance;
@@ -26,7 +27,7 @@ public class Shooter
     private Shooter( )
     {
         //Creates a new talon that will control the shooter at the specified port
-        _shooter = new Talon( RobotMap.SHOOTER_PORT );
+        _shooter = new Solenoid(RobotMap.PCM_PORT,  RobotMap.SHOOTER_CHANNEL );
     }
     
     /**
@@ -58,9 +59,9 @@ public class Shooter
           
           //Starts the firing process and fires using the delay provided
           firing = true;
-          _shooter.set( 1.0 );
+          _shooter.set( true );
           Timer.delay( delay );
-          _shooter.set( 0.0 );
+          _shooter.set( false );
           firing = false;
           System.out.println("fired");
         }
