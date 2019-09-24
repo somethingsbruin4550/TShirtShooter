@@ -52,9 +52,9 @@ public class RobotMap
 	public static final int COMPRESSOR_CHANNEL = 5;
 	public static final int PCM_PORT = 5;
 	
-	public static final double SHOOT_LOW_FOOT = 0.035;
-	public static final double SHOOT_MED_FOOT = 0.045;
-	public static final double SHOOT_HI_FOOT = 0.125;
+	public static final double SHOOT_LOW_FOOT = 0.045;
+	public static final double SHOOT_MED_FOOT = 0.090;
+	public static final double SHOOT_HI_FOOT = 0.175;
 	
 	public static final double SHOOT_LOW_GYM = 0.015;
 	public static final double SHOOT_MED_GYM = 0.022;

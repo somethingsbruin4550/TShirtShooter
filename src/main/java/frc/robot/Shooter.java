@@ -63,7 +63,7 @@ public class Shooter
           Timer.delay( delay );
           _shooter.set( false );
           firing = false;
-          System.out.println("fired");
+          System.out.println("Fired!");
         }
     }
 	

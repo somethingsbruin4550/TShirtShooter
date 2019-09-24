@@ -22,7 +22,7 @@ public class ShooterCompressor
     
     /**
      * Singleton of the Compressor
-     * @return The   
+     * @return Th
      */
     public static ShooterCompressor getInstance( )
     {

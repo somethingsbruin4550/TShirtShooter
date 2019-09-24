@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 // import edu.wpi.first.wpilibj.IterativeRobot; //Deprecated
 import edu.wpi.first.wpilibj.command.Scheduler;
 // import edu.wpi.first.wpilibj.smartdashboard.*;
+// import com.ctre.phoenix.motorcontrol.can.*;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,7 +31,6 @@ public class Robot extends TimedRobot
 	
 	// private SendableChooser _chooser;
 	// private SendableChooser _chooser2;
-	
 	
 	/**
 	 * This function is run when the robot is first started up
@@ -93,7 +94,7 @@ public class Robot extends TimedRobot
     {
     	Scheduler.getInstance().run();
 		//Drives the robot
-		final double spdLimit = 1.0;
+		final double spdLimit = 0.6;
 		_chassis.holoDrive( OI.normalize( spdLimit, -spdLimit, RobotMap.RIGHT_Y_ZERO, _oi.getRJoystickYAxis( ) ) ,
 			 				OI.normalize( spdLimit, -spdLimit, 0, _oi.getRJoystickXAxis( ) ), 
 								OI.normalize( spdLimit, -spdLimit, 0, _oi.getLJoystickXAxis( ) ) );
@@ -114,15 +115,21 @@ public class Robot extends TimedRobot
    		//Shoots if needed
    		if( _oi.getXButton() )
    		{
-   			_shooter.shoot( RobotMap.SHOOT_LOW_FOOT );
+			   _shooter.shoot( RobotMap.SHOOT_LOW_FOOT );
+			   System.out.println("Shoot Low");
+			   Timer.delay(1);
    		}
    		else if( _oi.getOButton( ) )
    		{
-   			_shooter.shoot( RobotMap.SHOOT_MED_FOOT );
+			   _shooter.shoot( RobotMap.SHOOT_MED_FOOT );
+			   System.out.println("Shoot Med");
+			   Timer.delay(1);
    		}
    		else if( _oi.getTriangleButton( ) )
    		{
-   			_shooter.shoot(  RobotMap.SHOOT_HI_FOOT );
+			   _shooter.shoot(  RobotMap.SHOOT_HI_FOOT );
+			   System.out.println("Shoot High");
+			   Timer.delay(1);
    		}
 
     }
