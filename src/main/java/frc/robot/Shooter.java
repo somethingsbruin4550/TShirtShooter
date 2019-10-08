@@ -1,70 +1,38 @@
 package frc.robot;
-
-// import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Timer;
+//imports solenoid timer and compresser from frc
+//imports robot map from parent
 import edu.wpi.first.wpilibj.Solenoid;
+import frc.parent.RobotMap;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Compressor;
 
-
-public class Shooter
-{
-
-	//The talon that controls the shooting
-    private Solenoid _shooter;
-    
-    //The shooter on the robot
-    private static Shooter _instance;
-    
-    //Whether or not we are firing
-    private boolean firing = false;
-    
-    //The Timer that controls when to fire
-    private Timer _timer;
-    
+public class Shooter{
+    //declares and inits shooter object
+    //declares and inits compresser object
+    private static Solenoid shooter = new Solenoid(RobotMap.PCM_PORT, RobotMap.SHOOTER);
+    private static Compressor compressor = new Compressor(RobotMap.PCM_PORT);
     /**
-     * Private constructor for singleton that creates a new talon for the shooter
-     * @param talonLocation The port of the talon 
-     */
-    private Shooter( )
-    {
-        //Creates a new talon that will control the shooter at the specified port
-        _shooter = new Solenoid(RobotMap.PCM_PORT,  RobotMap.SHOOTER_CHANNEL );
-    }
-    
-    /**
-     * Singleton of the Shooter
-     * @return Returns the instance of the Shooter that is in use
-     */
-    public static Shooter getInstance( )
-    {
-    	//Creates a new shooter if we already don't have one and returns the shooter if we do
-        if( _instance == null )
-        {
-            _instance = new Shooter( );
-        }
-        return _instance;
+     * starts compressor
+    */
+    public static void start(){
+        compressor.start();
+
     }
     /**
-     * Shoots the tShirt
-     * @param delay The time that the valve is open for the shot to occur
+     * ends compressor
      */
-    public void shoot( double delay )
-    {
-        //Checks to see if we are already firing, if so, don't fire
-        if( !firing && ( _timer == null || _timer.get( ) > 1.0 ) )
-        {
-          //Creates a timer to make sure we aren't firing to quickly
-          _timer = new Timer( );
-          _timer.reset( );
-          _timer.start( );
-          
-          //Starts the firing process and fires using the delay provided
-          firing = true;
-          _shooter.set( true );
-          Timer.delay( delay );
-          _shooter.set( false );
-          firing = false;
-          System.out.println("Fired!");
-        }
+    public static void end(){
+        compressor.stop();
     }
-	
+    /**
+     *
+     * @param delay time in seconds in which the solenoid is open
+     */
+    public static void shoot(double delay){
+            shooter.set(true);
+            Timer.delay(delay);
+            shooter.set(false);
+    }
+    
+    
 }

@@ -1,145 +1,120 @@
-
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 
 package frc.robot;
+import frc.parent.RobotMap;
+import frc.robot.OI;
+import frc.robot.Shooter;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-// import edu.wpi.first.wpilibj.IterativeRobot; //Deprecated
-import edu.wpi.first.wpilibj.command.Scheduler;
-// import edu.wpi.first.wpilibj.smartdashboard.*;
-// import com.ctre.phoenix.motorcontrol.can.*;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
+ * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * creating this project, you must also update the build.gradle file in the
+ * project.
  */
-public class Robot extends TimedRobot
-{
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
-	
-	private static OI _oi;// The driver interface 
-	private static Chassis _chassis; // The robot chassis
-	private static Mechanism _mechanism; //The robot mechanism
-	private static Shooter _shooter;//The shooter
-	private static ShooterCompressor _compressor;//The compressor
-	
-	// private SendableChooser _chooser;
-	// private SendableChooser _chooser2;
-	
-	/**
-	 * This function is run when the robot is first started up
-	 *  and should be used for any initialization. 
-	 */
-    public void robotInit()
-    {
-    	// Creates the OI, the Chassis, the Mechanism, the Shooter, and the Compressor of the robot
-    	_oi = new OI();
-    	_chassis = Chassis.getInstance();
-    	_mechanism = Mechanism.getInstance();
-    	_shooter = Shooter.getInstance();
-    	_compressor = ShooterCompressor.getInstance();
-    }
-    
-    /**
-	 * This function is called when the disabled button is hit.
-	 * You can use it to reset subsystems before shutting down.
-	 */
-	public void disabledInit()
-	{
-		_chassis.reset();//Stops the chassis
-		_mechanism.stopArm();//Stops the mechanism
-		_compressor.stop();//Stops the compressor
-	}
+public class Robot extends TimedRobot {
+  private static final String kDefaultAuto = "Default";
+  private static final String kCustomAuto = "My Auto";
+  private String m_autoSelected;
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-    /**
-     * This function is called periodically when the robot is disabled
-     */
-    public void disabledPeriodic()
-	{
-		Scheduler.getInstance().run();
-	}
-    
-    /**
-     * This function is called periodically during autonomous
-     */
-    public void autonomousPeriodic() 
-    {
+  /**
+   * This function is run when the robot is first started up and should be
+   * used for any initialization code.
+   */
+  @Override
+  public void robotInit() {
+    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+    m_chooser.addOption("My Auto", kCustomAuto);
+    SmartDashboard.putData("Auto choices", m_chooser);
 
-    }
-    
-    /**
-     * 
-     * hey
-     * 
-     */
-    
-    /**
-     * Starts the teleop
-     */
-    public void teleopInit()
-	{
-    	//_compressor.start( );
-	}
+    Chassis.setReverse();
+  }
 
-    /**
-     * This function is called periodically during operator control
-     */
-    public void teleopPeriodic()
-    {
-    	Scheduler.getInstance().run();
-		//Drives the robot
-		final double spdLimit = 0.6;
-		_chassis.holoDrive( OI.normalize( spdLimit, -spdLimit, RobotMap.RIGHT_Y_ZERO, _oi.getRJoystickYAxis( ) ) ,
-			 				OI.normalize( spdLimit, -spdLimit, 0, _oi.getRJoystickXAxis( ) ), 
-								OI.normalize( spdLimit, -spdLimit, 0, _oi.getLJoystickXAxis( ) ) );
-    	
-    	//Moves the arm
-    	_mechanism.moveArm(  OI.normalize( .7, -.7, 0, _oi.getL2() - _oi.getR2() ) );
-    	//System.out.println( OI.normalize( .7, -.7, 0, _oi.getL2() - _oi.getR2() ) );
-   		
-    	//Stops the arm if necessary
-    	if( Math.abs( _oi.getL2() - _oi.getR2() ) <= 0.05 )
-   		{
-   			_mechanism.stopArm();
-   		}
-    	//Runs the compressor
-   		_compressor.runCompressor();
-   		
-   		
-   		//Shoots if needed
-   		if( _oi.getXButton() )
-   		{
-			   _shooter.shoot( RobotMap.SHOOT_LOW_FOOT );
-			   System.out.println("Shoot Low");
-			   Timer.delay(1);
-   		}
-   		else if( _oi.getOButton( ) )
-   		{
-			   _shooter.shoot( RobotMap.SHOOT_MED_FOOT );
-			   System.out.println("Shoot Med");
-			   Timer.delay(1);
-   		}
-   		else if( _oi.getTriangleButton( ) )
-   		{
-			   _shooter.shoot(  RobotMap.SHOOT_HI_FOOT );
-			   System.out.println("Shoot High");
-			   Timer.delay(1);
-   		}
+  /**
+   * This function is called every robot packet, no matter the mode. Use
+   * this for items like diagnostics that you want ran during disabled,
+   * autonomous, teleoperated and test.
+   *
+   * <p>This runs after the mode specific periodic functions, but before
+   * LiveWindow and SmartDashboard integrated updating.
+   */
+  @Override
+  public void robotPeriodic() {
+  }
 
+  /**
+   * This autonomous (along with the chooser code above) shows how to select
+   * between different autonomous modes using the dashboard. The sendable
+   * chooser code works with the Java SmartDashboard. If you prefer the
+   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
+   * getString line to get the auto name from the text box below the Gyro
+   *
+   * <p>You can add additional auto modes by adding additional comparisons to
+   * the switch structure below with additional strings. If using the
+   * SendableChooser make sure to add them to the chooser code above as well.
+   */
+  @Override
+  public void autonomousInit() {
+    m_autoSelected = m_chooser.getSelected();
+    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
+    System.out.println("Auto selected: " + m_autoSelected);
+  }
+
+  /**
+   * This function is called periodically during autonomous.
+   */
+  @Override
+  public void autonomousPeriodic() {
+    switch (m_autoSelected) {
+      case kCustomAuto:
+        // Put custom auto code here
+        break;
+      case kDefaultAuto:
+      default:
+        // Put default auto code here
+        break;
     }
+  }
+
+  /**
+   * This function is called periodically during operator control.
+   */
+  @Override
+  public void teleopPeriodic() {
+    //Starts the solonoid 
+    Shooter.start();
+
+    //Inputs joysticks into strafe drive
+    Chassis.drive(OI.normalize(-OI.getAxis(RobotMap.R_JOYSTICK_VERTICAL), -1, 1),
+                   OI.normalize(OI.getAxis(RobotMap.R_JOYSTICK_HORIZONTAL), -1, 1),
+                   OI.normalize(OI.getAxis(RobotMap.L_JOYSTICK_HORIZONTAL), -1, 1)
+                   );
     
-    /**
-     * This function is called periodically during test mode
-     */
-    public void testPeriodic()
-    {
-    	
+    //Sets shooter height based on joystick input
+    if(OI.getButton(RobotMap.A_BUTTON)){
+      Shooter.shoot(RobotMap.SHOOT_LOW_FOOT);
+    } else if(OI.getButton(RobotMap.B_BUTTON)){
+      Shooter.shoot(RobotMap.SHOOT_MED_FOOT);
+    } else if(OI.getButton(RobotMap.Y_BUTTON)){
+      Shooter.shoot(RobotMap.SHOOT_HIGH_FOOT);
     }
-    
+    // OI.getButton(RobotMap.A_BUTTON);
+  }
+
+  /**
+   * This function is called periodically during test mode.
+   */
+  @Override
+  public void testPeriodic() {
+  }
 }
